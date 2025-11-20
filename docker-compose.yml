@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: gc-streamlit-dev
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./app:/app/app:ro
+      - ./app/pages:/app/app/pages:ro
+      - ./tests:/app/tests:ro
+      - ./.streamlit:/app/.streamlit:ro
+    env_file:
+      - .env
+    environment:
+      - APP_ENV=development
+      - STREAMLIT_SERVER_FILE_WATCHER_TYPE=auto
+    restart: unless-stopped
+    command: streamlit run app/main.py --server.runOnSave=true
