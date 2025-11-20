@@ -17,11 +17,11 @@ COPY pyproject.toml ./
 # Development stage
 FROM base AS development
 
-# Install all dependencies including dev
-RUN uv pip install -e ".[dev]"
-
-# Copy application code
+# Copy application code first
 COPY . .
+
+# Install all dependencies including dev
+RUN uv pip install ".[dev]"
 
 # Expose Streamlit port
 EXPOSE 8501
@@ -36,12 +36,12 @@ CMD ["streamlit", "run", "app/main.py", "--server.runOnSave=true"]
 # Production stage
 FROM base AS production
 
-# Install only production dependencies
-RUN uv pip install .
-
 # Copy only necessary application files
 COPY app/ ./app/
 COPY .streamlit/ ./.streamlit/
+
+# Install only production dependencies
+RUN uv pip install .
 
 # Create non-root user
 RUN useradd -m -u 1000 streamlit && \
