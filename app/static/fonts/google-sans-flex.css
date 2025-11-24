@@ -1,0 +1,9 @@
+/* Google Sans Flex - Local Font */
+@font-face {
+  font-family: 'Google Sans Flex';
+  font-style: normal;
+  font-weight: 400 700;
+  font-stretch: 100%;
+  font-display: block;
+  src: local('Google Sans Flex'), url('GoogleSansFlex-Latin.woff2') format('woff2');
+}

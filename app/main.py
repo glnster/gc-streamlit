@@ -1,6 +1,45 @@
 """Main Streamlit application - Home page."""
 
 import streamlit as st
+import base64
+from pathlib import Path
+
+
+def load_google_sans_font():
+    """Load Google Sans Flex font from local file and embed it."""
+    font_path = Path(__file__).parent / "static" / "fonts" / "GoogleSansFlex-Latin.woff2"
+
+    # Read and encode font file to base64
+    with open(font_path, "rb") as f:
+        font_data = base64.b64encode(f.read()).decode()
+
+    # Inject font CSS with base64 data and apply to all elements
+    st.markdown(f"""
+        <style>
+        @font-face {{
+            font-family: 'Google Sans Flex';
+            font-style: normal;
+            font-weight: 400 700;
+            font-stretch: 100%;
+            font-display: block;
+            src: url(data:font/woff2;base64,{font_data}) format('woff2');
+        }}
+
+        html, body, [class*="css"], * {{
+            font-family: 'Google Sans Flex', sans-serif !important;
+        }}
+
+        h1, h2, h3, h4, h5, h6 {{
+            font-family: 'Google Sans Flex', sans-serif !important;
+        }}
+
+        .stMarkdown, .stText, .stTextInput, .stSelectbox, .stMultiselect,
+        .stNumberInput, .stTextArea, .stDateInput, .stTimeInput,
+        div[data-testid="stMarkdownContainer"], p, span, label {{
+            font-family: 'Google Sans Flex', sans-serif !important;
+        }}
+        </style>
+        """, unsafe_allow_html=True)
 
 
 def main():
@@ -12,26 +51,8 @@ def main():
         initial_sidebar_state="expanded",
     )
 
-    # Apply Google Sans font for Material Design look
-    st.markdown("""
-        <style>
-        @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;700&display=swap');
-
-        html, body, [class*="css"], * {
-            font-family: 'Google Sans Flex', sans-serif !important;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Google Sans Flex', sans-serif !important;
-        }
-
-        .stMarkdown, .stText, .stTextInput, .stSelectbox, .stMultiselect,
-        .stNumberInput, .stTextArea, .stDateInput, .stTimeInput,
-        div[data-testid="stMarkdownContainer"], p, span, label {
-            font-family: 'Google Sans Flex', sans-serif !important;
-        }
-        </style>
-        """, unsafe_allow_html=True)
+    # Apply Google Sans font for Material Design look (local, no FOUC)
+    load_google_sans_font()
 
     st.title("🚀 GC Streamlit")
     st.write("This is a multi-page Streamlit application running in Docker.")
