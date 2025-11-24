@@ -11,6 +11,27 @@ def main():
         layout="wide",
     )
 
+    # Apply Google Sans font for Material Design look
+    st.markdown("""
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;700&display=swap');
+
+        html, body, [class*="css"], * {
+            font-family: 'Google Sans Flex', sans-serif !important;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Google Sans Flex', sans-serif !important;
+        }
+
+        .stMarkdown, .stText, .stTextInput, .stSelectbox, .stMultiselect,
+        .stNumberInput, .stTextArea, .stDateInput, .stTimeInput,
+        div[data-testid="stMarkdownContainer"], p, span, label {
+            font-family: 'Google Sans Flex', sans-serif !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
     st.title("ℹ️ About GC Streamlit")
 
     st.markdown("""
