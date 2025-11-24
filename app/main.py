@@ -12,7 +12,7 @@ def main():
         initial_sidebar_state="expanded",
     )
 
-    st.title("🚀 Welcome to GC Streamlit")
+    st.title("🚀 GC Streamlit")
     st.write("This is a multi-page Streamlit application running in Docker.")
 
     st.divider()
