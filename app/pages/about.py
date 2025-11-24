@@ -38,6 +38,29 @@ def load_google_sans_font():
         div[data-testid="stMarkdownContainer"], p, span, label {{
             font-family: 'Google Sans Flex', sans-serif !important;
         }}
+
+        /* Hide the keyboard_double_arrow_left text completely */
+        span {{
+            position: relative;
+        }}
+
+        /* Target spans that contain the text and hide it */
+        [data-testid="stSidebarCollapse"] span,
+        [data-testid="collapsedControl"] span,
+        button[kind="header"] span,
+        button[kind="headerNoPadding"] span {{
+            font-size: 0 !important;
+        }}
+
+        /* Add Unicode replacement symbol */
+        [data-testid="stSidebarCollapse"] span::before,
+        [data-testid="collapsedControl"] span::before,
+        button[kind="header"] span::before,
+        button[kind="headerNoPadding"] span::before {{
+            content: "«";
+            font-size: 1.5rem !important;
+            font-family: 'Google Sans Flex', sans-serif !important;
+        }}
         </style>
         """, unsafe_allow_html=True)
 
